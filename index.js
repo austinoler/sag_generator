@@ -1,38 +1,32 @@
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 const Logo = require('./logo');
 const { createSVG, saveSVG } = require('./utils');
 
 function promptUser() {
-  return new Promise((resolve, reject) => {
-    inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'text',
-          message: 'Enter up to three characters for the logo:',
-          validate: input => input.length <= 3,
-        },
-        {
-          type: 'input',
-          name: 'textColor',
-          message: 'Enter text color (keyword or hexadecimal):',
-        },
-        {
-          type: 'list',
-          name: 'shape',
-          message: 'Choose a shape:',
-          choices: ['circle', 'triangle', 'square'],
-        },
-        {
-          type: 'input',
-          name: 'shapeColor',
-          message: 'Enter shape color (keyword or hexadecimal):',
-        },
-      ])
-      .then(resolve)
-      .catch(reject);
-  });
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'text',
+      message: 'Enter up to three characters for the logo:',
+      validate: input => (input.length <= 3 ? true : 'Text must be up to three characters.'),
+    },
+    {
+      type: 'input',
+      name: 'textColor',
+      message: 'Enter text color (keyword or hexadecimal):',
+    },
+    {
+      type: 'list',
+      name: 'shape',
+      message: 'Choose a shape:',
+      choices: ['circle', 'triangle', 'square'],
+    },
+    {
+      type: 'input',
+      name: 'shapeColor',
+      message: 'Enter shape color (keyword or hexadecimal):',
+    },
+  ]);
 }
 
 promptUser()
@@ -46,5 +40,6 @@ promptUser()
 
     const svgContent = logo.generateSVG();
     saveSVG(svgContent, 'logo.svg');
+    console.log('Logo generated successfully.');
   })
-  .catch(error => console.error(chalk.red(`Error: ${error.message}`)));
+  .catch(error => console.error(`Error: ${error.message}`));
