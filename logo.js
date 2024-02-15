@@ -9,10 +9,10 @@ class Logo {
   generateSVG() {
     const width = 300;
     const height = 200;
-
+  
     // SVG opening tag with width and height attributes
     let svgContent = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">`;
-
+  
     // Shape element
     if (this.shape === 'square') {
       svgContent += `<rect width="80%" height="80%" x="10%" y="10%" fill="${this.validateColor(this.shapeColor)}" />`;
@@ -21,15 +21,15 @@ class Logo {
       svgContent += `<circle cx="50%" cy="50%" r="40%" fill="${this.validateColor(this.shapeColor)}" />`;
     } else if (this.shape === 'triangle') {
       // Triangle element
-      svgContent += `<polygon points="50%,10% 90%,90% 10%,90%" fill="${this.validateColor(this.shapeColor)}" />`;
+      svgContent += `<polygon points="150,10 250,190 50,190" fill="${this.validateColor(this.shapeColor)}" />`;
     }
-
+  
     // Text element
     svgContent += `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="${this.validateColor(this.textColor)}" font-size="30">${this.text}</text>`;
-
+  
     // SVG closing tag
     svgContent += `</svg>`;
-
+  
     return svgContent;
   }
 
